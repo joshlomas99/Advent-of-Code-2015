@@ -1,4 +1,3 @@
-import shlex
 import numpy as np
 
 def Day2_Part1(filename='Inputs/Day2_Inputs.txt'):
@@ -20,35 +19,17 @@ def Day2_Part1(filename='Inputs/Day2_Inputs.txt'):
 
     """
     file = open(filename)
-    dimensions_list = []
+    dimensions = []
     for line in file:
-        line = line.strip()
-        line = shlex.split(line)
+        line = line.strip().split()
         if len(line) > 0:
-            dimensions_list.append(line)
+            dimensions.append([int(i) for i in line[0].split('x')])
     file.close()
-    
-    formatted_dimensions = []
-    for dim_set in dimensions_list:
-        dimensions, i = [], 0
-        while i < len(dim_set[0]):
-            curr_dim = ''
-            while i < len(dim_set[0]) and dim_set[0][i] != 'x':
-                curr_dim += dim_set[0][i]
-                i += 1
-            dimensions.append(int(curr_dim))
-            i += 1
-        formatted_dimensions.append(dimensions)
 
-    total_area = 0
-    for dims in formatted_dimensions:
-        smallest_side = False
-        for indices in [[0, 1], [0, 2], [1, 2]]:
-            total_area += 2*dims[indices[0]]*dims[indices[1]]
-            if not smallest_side or dims[indices[0]]*dims[indices[1]] < smallest_side:
-                smallest_side = dims[indices[0]]*dims[indices[1]]
-        total_area += smallest_side
-            
+    d = np.array(dimensions)
+    faces = np.array([d[:, indices[0]]*d[:, indices[1]] for indices in [[0, 1], [0, 2], [1, 2]]]).T
+    total_area  = np.sum(2*np.sum(faces, axis=1) + np.min(faces, axis=1))
+
     return total_area
 
 def Day2_Part2(filename='Inputs/Day2_Inputs.txt'):
@@ -70,33 +51,15 @@ def Day2_Part2(filename='Inputs/Day2_Inputs.txt'):
 
     """
     file = open(filename)
-    dimensions_list = []
+    dimensions = []
     for line in file:
-        line = line.strip()
-        line = shlex.split(line)
+        line = line.strip().split()
         if len(line) > 0:
-            dimensions_list.append(line)
+            dimensions.append([int(i) for i in line[0].split('x')])
     file.close()
-    
-    formatted_dimensions = []
-    for dim_set in dimensions_list:
-        dimensions, i = [], 0
-        while i < len(dim_set[0]):
-            curr_dim = ''
-            while i < len(dim_set[0]) and dim_set[0][i] != 'x':
-                curr_dim += dim_set[0][i]
-                i += 1
-            dimensions.append(int(curr_dim))
-            i += 1
-        formatted_dimensions.append(dimensions)
 
-    total_length = 0
-    for dims in formatted_dimensions:
-        smallest_face = False
-        for indices in [[0, 1], [0, 2], [1, 2]]:
-            if not smallest_face or 2 * (dims[indices[0]] + dims[indices[1]]) < smallest_face:
-                smallest_face = 2 * (dims[indices[0]] + dims[indices[1]])
-        total_length += smallest_face
-        total_length += np.product(dims)
+    d = np.array(dimensions)
+    perimeters = np.array([2*(d[:, indices[0]] + d[:, indices[1]]) for indices in [[0, 1], [0, 2], [1, 2]]]).T
+    total_length  = np.sum(np.min(perimeters, axis=1) + np.product(d, axis=1))
             
     return total_length
