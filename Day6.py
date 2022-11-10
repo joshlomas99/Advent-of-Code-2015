@@ -1,12 +1,41 @@
 import numpy as np
 
 class Instruction:
+    """
+    Class describing an instruction for controlling lights.
+    """
     def __init__(self, type_, coords):
+        """
+        Initialise the class with two parameters.
+
+        Parameters
+        ----------
+        type_ : str
+            The instruction to perform, options are 'on', 'off' and 'toggle'.
+
+        coords : list of lists of ints
+            The two sets of coordinates bounding the set of lights to be affected.
+            e.g. [[0, 0], [1, 1]] affects lights at [0, 0], [0, 1], [1, 0], [1, 1].                                                
+            
+        Returns
+        -------
+        None.
+
+        """
         self.type = type_
         self.coords = coords
 
     def __repr__(self):
-        return '{}({}, {})'.format('Instruction', self.type, self.coords)
+        """
+        Return the representation of an Instruction object.
+
+        Returns
+        -------
+        str
+            Representation.
+
+        """
+        return '{}({}, {})'.format(self.__class__.__name__, self.type, self.coords)
 
 def Day6_Part1(filename='Inputs/Day6_Inputs.txt'):
     """

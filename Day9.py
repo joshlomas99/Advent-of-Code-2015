@@ -1,7 +1,26 @@
 import numpy as np
 
 def minKey(dictionary):
-    return list(dictionary.keys())[np.argmin(list(dictionary.values()))], min(list(dictionary.values()))
+    """
+    Finds the key and value of the item in a dictionary with the minimum value.
+
+    Parameters
+    ----------
+    dictionary : dict
+        The dictionary to find the minimum in.
+
+    Returns
+    -------
+    min_key : str
+        The key corresponding to the minimum value in the dictionary.
+    min_val : int or float
+        The minimum value in the dictionary.
+
+    """
+    min_key = list(dictionary.keys())[np.argmin(list(dictionary.values()))]
+    min_val = min(list(dictionary.values()))
+
+    return min_key, min_val
 
 def Day9_Part1(filename='Inputs/Day9_Inputs.txt'):
     """
