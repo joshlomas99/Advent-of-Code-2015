@@ -1,4 +1,26 @@
 def lookAndSay(number):
+    """
+    Applies the 'look and say' procedure to a given string of numbers.
+
+    Look and say
+    ------------
+    1 becomes 11 (1 copy of digit 1).
+    11 becomes 21 (2 copies of digit 1).
+    21 becomes 1211 (one 2 followed by one 1).
+    1211 becomes 111221 (one 1, one 2, and two 1s).
+    111221 becomes 312211 (three 1s, two 2s, and one 1).
+
+    Parameters
+    ----------
+    number : str
+        Starting string of numbers.
+
+    Returns
+    -------
+    out : str
+        The result of applying the look and say procedure to the starting string.
+
+    """
     i, out = 0, ''
     while i < len(number):
         current_char = number[i]
@@ -58,6 +80,20 @@ def Day10_Part1(filename='Inputs/Day10_Inputs.txt'):
 from collections.abc import Iterable
 
 def flatten(xs):
+    """
+    Flattens a given array down to a 1-dimensional generator.
+
+    Parameters
+    ----------
+    xs : n-dimensional iterable of iterables
+        Initial n-dimensional array. Can be uneven.
+
+    Returns
+    -------
+    x : generator
+        The flattened 1-dimensional array as a generator.
+
+    """
     for x in xs:
         if isinstance(x, Iterable) and not isinstance(x, (str, bytes)):
             yield from flatten(x)
@@ -121,4 +157,3 @@ def Day10_Part2(filename='Inputs/Day10_Inputs.txt', elements='Inputs/ConwayEleme
     number_length = sum([len(element_to_number[e]) for e in sequence])
 
     return number_length
-
