@@ -19,7 +19,6 @@ def Day1_Part1(filename='Inputs/Day1_Inputs.txt'):
     file = open(filename)
     for line in file:
         line = line.strip().split()
-        line = line
         if len(line) > 0:
             parentheses = line[0]
     file.close()
