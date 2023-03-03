@@ -28,7 +28,7 @@ def battle(player1, player2):
     while players[turn]['Hit Points'] > 0: # While both players have health
         d, a = players[turn]['Damage'], players[~turn%2]['Armor']
         # Do at least one damage, up to current player's damage - other player's health
-        players[~turn%2]['Hit Points'] -= (1 + (d > a)*(d - a - 1))
+        players[~turn%2]['Hit Points'] -= max(1, d - a)
         # Invert turn number (0 --> 1, 1 --> 0)
         turn = ~turn%2
 
